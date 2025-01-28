@@ -1,0 +1,41 @@
+
+#Schemas onde uma categoria pode possuir N cursos
+type Category {
+  id: ID!
+  name:String!
+  description: String
+  courses: [Course]!
+}
+
+type Course {
+  id: ID!
+  name: String!
+  description: String
+  category: Category!
+}
+
+#Input de dados para a criação de uma nova Categoria
+input NewCategory {
+  name: String!
+  description: String
+}
+
+#Input de dados para a criação de um novo Curso
+input NewCourse {
+  name: String!
+  description: String
+  categoryId: ID!
+}
+
+#Opção para querys no GraphQL
+type Query {
+  categories: [Category!]!
+  courses: [Course!]!
+}
+
+#Mutations, alterar dados ou criar dados, cria um novo curso -> retorna um curso
+type Mutation {
+  createCategory(input: NewCategory!): Category!
+  createCourse(input: NewCourse!): Course!
+}
+
